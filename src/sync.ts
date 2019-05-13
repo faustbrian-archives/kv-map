@@ -1,7 +1,11 @@
 import { IKeyValueStoreSync } from "@keeveestore/keeveestore";
 
 export class StoreSync<K, T> implements IKeyValueStoreSync<K, T> {
-	private readonly store: Map<K, T> = new Map<K, T>();
+	private constructor(private readonly store: Map<K, T>) {}
+
+	public static new<K, T>(): StoreSync<K, T> {
+		return new StoreSync<K, T>(new Map<K, T>());
+	}
 
 	public all(): [K, T][] {
 		return [...this.store.entries()];
